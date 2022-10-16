@@ -1,0 +1,73 @@
+import speech_recognition as sr
+import pyttsx3
+import pywhatkit
+import datetime
+import wikipedia
+import pyjokes
+
+listener = sr.Recognizer()
+engine = pyttsx3.init()
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[0].id)
+
+
+def talk(text):
+    engine.say(text)
+    engine.runAndWait()
+
+
+def take_command():
+    try:
+        with sr.Microphone() as source:
+            print('listening...')
+            voice = listener.listen(source)
+            command = listener.recognize_google(voice)
+            command = command.lower()
+            if 'jonas' in command:
+                command = command.replace('jonas', '')
+                print(command)
+    except:
+        pass
+    return command
+
+
+def run_jonas():
+    command = take_command()
+    print(command)
+    if 'play' in command:
+        song = command.replace('play', '')
+        talk('playing ' + song)
+        pywhatkit.playonyt(song)
+    elif 'time' in command:
+        time = datetime.datetime.now().strftime('%I:%M %p')
+        talk('Current time is ' + time)
+    elif 'who the heck is' in command:
+        person = command.replace('who the heck is', '')
+        info = wikipedia.summary(person, 1)
+        print(info)
+        talk(info)
+    elif 'date' in command:
+        talk('sorry, I have a headache')
+    elif 'are you single' in command:
+        talk('I am in a relationship with wifi')
+    elif 'joke' in command:
+        talk(pyjokes.get_joke())
+    elif 'jonas' in command:
+        talk('hi sir')
+    elif 'bobo' in command:
+        talk('BOBO KA DIN GAGO PUTANGINAMO TANGA')
+    elif 'good' in command:
+        talk('thank you sir')
+    elif 'who are you' in command:
+        talk('Im jonas, and im created by. Joaquin abion.')
+    elif 'hi' in command:
+        talk('Hello sir')
+    elif 'hello' in command:
+        talk('hi')
+
+    else:
+        talk('can you repeat it?')
+
+
+while True:
+    run_jonas()
