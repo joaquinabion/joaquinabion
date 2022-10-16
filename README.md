@@ -1,3 +1,3 @@
 - 👋 Hi, I’m @joaquinabion
-- 🌱 I’m currently learning pytho
+- 🌱 I’m currently learning python
 - fb: https://www.facebook.com/josejoaquin.abion
